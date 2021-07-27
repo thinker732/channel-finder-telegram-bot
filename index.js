@@ -1,18 +1,35 @@
+
+/*fix some error*/
 process.env.NTBA_FIX_319 = 1;
+
+/*TOKEN should be define in config/dev.env*/
+
 let telegramBot=require('node-telegram-bot-api');
+const commands = require('./commands');
 let bot=new telegramBot(process.env.TOKEN,{polling:true});
 
-bot.onText(/\/test (.+)/,function(msg,match){
+
+bot.setMyCommands(commands)
+
+
+//when chat start
+bot.onText(/^\/start/,function(msg,match){
     let chatid=msg.chat.id;
-    bot.sendMessage(chatid,'ok');
+    let username=msg.from.first_name
+    //console.log({msg})
+    bot.sendMessage(chatid," WELCOME "+username);
 });
 
-bot.on('message',(msg)=>{
-  let chatid=msg.chat.id;
-  let username=msg.chat.username;
-  bot.sendMessage(chatid,'Message recu '+username);
-  bot.sendMessage(chatid,"je suis en cours de build plus tard nous pourrons dialoguer")
+
+bot.onText(/^\/command/,(msg)=>{
+
+    bot.getMyCommands()
+    .then((info)=>{
+        console.log(info)
+    })
+
 })
+
 
 bot.on('polling_error', (error) => {
     console.log(error.code);  // => 'EFATAL'
