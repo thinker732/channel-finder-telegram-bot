@@ -2,10 +2,15 @@
 /*fix some error*/
 process.env.NTBA_FIX_319 = 1;
 
+
+
 /*TOKEN should be define in config/dev.env*/
 
 let telegramBot=require('node-telegram-bot-api');
+
+
 const commands = require('./commands');
+const channel=require('./save/channel')
 let bot=new telegramBot(process.env.TOKEN,{polling:true});
 
 
