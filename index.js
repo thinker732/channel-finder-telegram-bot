@@ -26,9 +26,10 @@ bot.onText(/^\/start/,function(msg,match){
 });
 
 
-bot.onText(/^\/getchannel/,(msg)=>{
+bot.onText(/^\/getchannel/,async (msg)=>{
 
-    channel.getChannel();
+    const c=await channel.getChannel()
+    console.log(c);
 })
 
 bot.onText(/^\/addchannel/,(msg)=>{
