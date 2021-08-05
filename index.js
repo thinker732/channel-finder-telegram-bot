@@ -10,7 +10,7 @@ let telegramBot=require('node-telegram-bot-api');
 
 
 const commands = require('./commands');
-const channel=require('./save/channel')
+const channel=require('./save/channelManager')
 let bot=new telegramBot(process.env.TOKEN,{polling:true});
 
 
@@ -21,10 +21,20 @@ bot.setMyCommands(commands)
 bot.onText(/^\/start/,function(msg,match){
     let chatid=msg.chat.id;
     let username=msg.from.first_name
-    //console.log({msg})
+    console.log({msg})
     bot.sendMessage(chatid," WELCOME "+username);
 });
 
+
+bot.onText(/^\/getchannel/,(msg)=>{
+
+    channel.getChannel();
+})
+
+bot.onText(/^\/addchannel/,(msg)=>{
+
+    channel.addChannel();
+})
 
 bot.onText(/^\/command/,(msg)=>{
 
