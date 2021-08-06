@@ -16,6 +16,14 @@ const channelSchema=new mongoose.Schema({
         type:String,
         required:false
     },
+    tags:{
+        type:String,
+        required:false
+    },
+    members:{
+        type:String,
+        required:false
+    },
     type:{
         type:String,
         required:false
